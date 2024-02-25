@@ -1,4 +1,12 @@
-# @metamask/template-snap-monorepo
+# happyHarpie
+## Getting Started
+and set up the development environment:
+
+```shell
+yarn install && yarn start
+```
+
+<!-- # @metamask/template-snap-monorepo
 
 This repository demonstrates how to develop a snap with TypeScript. For detailed
 instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html#serving-a-snap-to-your-local-environment).
@@ -50,4 +58,4 @@ packages with scripts, you can run `yarn allow-scripts auto`, and enable the
 script in the `lavamoat.allowScripts` section of `package.json`.
 
 See the documentation for [@lavamoat/allow-scripts](https://github.com/LavaMoat/LavaMoat/tree/main/packages/allow-scripts)
-for more information.
+for more information. -->

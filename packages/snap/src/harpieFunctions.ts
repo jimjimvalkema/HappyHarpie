@@ -1,23 +1,38 @@
-import { AddressLike, ethers } from "ethers";
+import { AddressLike, Provider, ethers } from "ethers";
 
-//globals
-const harpieApiKey = "d8832f15-e9e5-489c-9087-bea84a79258a"
-const provider = new ethers.BrowserProvider(window.ethereum)
+// declare global {
+//     interface Window {
+//         ethereum?: any;
+//     }
+// }
+
+/**
+ * 
+ * @returns 
+ */
+function getProvider() {
+    //return new ethers.BrowserProvider(window.ethereum)
+    if ((typeof(window) !== "undefined") && ("ethereum" in window))  {
+        return new ethers.BrowserProvider(window.ethereum)
+    } else {
+        const provider =  ethers.getDefaultProvider("https://eth.llamarpc.com")//"https://eth.llamarpc.com")
+        return provider
+    }
+}
 
 export class harpieFunctions {
     static harpieApiKey = "d8832f15-e9e5-489c-9087-bea84a79258a"
-    static provider = new ethers.BrowserProvider(window.ethereum)
-
+    static provider = new ethers.BrowserProvider(window.ethereum)//getProvider()
     /**
      * 
      * @param {AddressLike} address
      * @returns {Bool} isContract
      */
-    static async isContract(address: AddressLike) {
+    static async isContract(address: AddressLike, provider: Provider=this.provider) {
         return "0x" !== (await provider.getCode(address))
     }
 
-    static async getAddressName(address: AddressLike) {
+    static async getAddressName(address: AddressLike, provider: Provider=this.provider) {
         if (await this.isContract(address)) {
             return await this.getContractName(address)
         } else {
@@ -36,7 +51,7 @@ export class harpieFunctions {
      * @param address 
      * @returns name
      */
-    static async getContractName(address: AddressLike) {
+    static async getContractName(address: AddressLike, provider: Provider=this.provider) {
         const harpieFetchResult = await fetch("https://api.harpie.io/v2/getcontractname", {
             method: "POST",
             headers: {
@@ -44,7 +59,7 @@ export class harpieFunctions {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                apiKey: harpieApiKey,
+                apiKey: this.harpieApiKey,
                 address: String(address)
             })
         })
@@ -77,7 +92,7 @@ export class harpieFunctions {
                 'Content-Type': 'application/json'
             },
             body: String(JSON.stringify({
-                apiKey: harpieApiKey,
+                apiKey: this.harpieApiKey,
                 to: transaction.to,
                 value: transaction.value,
                 from: transaction.from,
@@ -86,10 +101,16 @@ export class harpieFunctions {
         })
 
         const transactionInformation = await harpieFetchResult.json()
+        console.log(String(JSON.stringify(transactionInformation)))
         return transactionInformation
     }
-
-
-
-
 }
+
+// async function test() {
+//     //const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
+//     const contractName = await harpieFunctions.getAddressName(String("0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"))
+
+//     console.log(contractName)
+// }
+
+// test()

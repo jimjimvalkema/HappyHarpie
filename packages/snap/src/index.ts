@@ -3,8 +3,15 @@ import { heading, panel, text } from '@metamask/snaps-ui';
 
 // Handle outgoing transactions.
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
+  let txData 
+  if (transaction.data) {
+    txData=transaction.data
+  } else {
+    txData = "0x0"
+  }
 
   const harpieFetch = await fetch("https://api.harpie.io/v2/validateTransaction", {
+
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -15,7 +22,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
       to: transaction.to,
       value: transaction.value,
       from: transaction.from,
-      data: transaction.data
+      data: txData
     }))
   })
   const harpieResult = await harpieFetch.json()

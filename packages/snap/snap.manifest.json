@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
   "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example",
+  "proposedName": "happy harpy",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "l/MowrEakdikNg7qDSkqxyOa18JEaiei1w2QM88QQVc=",
+    "shasum": "kGqOttG3fBQoBZaPw+cOD5K8PMggy6lTBj80iIlRVJg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -19,6 +19,7 @@
   "initialPermissions": {
     "endowment:transaction-insight": {},
     "endowment:ethereum-provider": {},
+    "endowment:network-access": {},
     "snap_dialog": {},
     "endowment:rpc": {
       "dapps": true,

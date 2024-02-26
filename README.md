@@ -3,11 +3,24 @@
 and set up the development environment:
 
 ```shell
-yarn add ethers ;yarn add @metamask/snaps-types; yarn add @metamask/snaps-ui;
+yarn add ethers; yarn add @metamask/snaps-types; yarn add @metamask/snaps-ui;
 yarn install; 
 yarn start;
 ```
+  
+test mainsnap
+```shell
+yarn test
+```
+  
+run harpie functions without snap
+```shell
+bun run ./packages/snap/src/harpieFunctionsTest.ts
+```
+  
 
+install bun  
+https://bun.sh/docs/installation
 <!-- # @metamask/template-snap-monorepo
 
 This repository demonstrates how to develop a snap with TypeScript. For detailed

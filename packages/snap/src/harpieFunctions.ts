@@ -12,10 +12,10 @@ declare global {
  */
 function getProvider() {
     //return new ethers.BrowserProvider(window.ethereum)
-    if ((typeof(window) !== "undefined") && ("ethereum" in window))  {
+    if ((typeof (window) !== "undefined") && ("ethereum" in window)) {
         return new ethers.BrowserProvider(window.ethereum)
     } else {
-        const provider =  ethers.getDefaultProvider("https://mainnet.infura.io/v3/891310e614d7438f9b26f7adc8d8cf47")//"https://eth.llamarpc.com")
+        const provider = ethers.getDefaultProvider("https://mainnet.infura.io/v3/891310e614d7438f9b26f7adc8d8cf47")//"https://eth.llamarpc.com")
         return provider
     }
 }
@@ -28,16 +28,16 @@ export class harpieFunctions {
      * @param {AddressLike} address
      * @returns {Bool} isContract
      */
-    static async isContract(address: AddressLike, provider: Provider=this.provider) {
+    static async isContract(address: AddressLike, provider: Provider = this.provider) {
         return "0x" !== (await provider.getCode(address))
     }
 
-    static async getAddressName(address: AddressLike, provider: Provider=this.provider) {
+    static async getAddressName(address: AddressLike, provider: Provider = this.provider) {
         if (await this.isContract(address)) {
             return await this.getContractName(address)
         } else {
             const ensName = await provider.lookupAddress(String(address))
-            if (ensName === null) {
+            if (ensName === "null") {
                 return address
             } else {
                 return ensName
@@ -51,7 +51,7 @@ export class harpieFunctions {
      * @param address 
      * @returns name
      */
-    static async getContractName(address: AddressLike, provider: Provider=this.provider) {
+    static async getContractName(address: AddressLike, provider: Provider = this.provider) {
         const harpieFetchResult = await fetch("https://api.harpie.io/v2/getcontractname", {
             method: "POST",
             headers: {
@@ -63,11 +63,12 @@ export class harpieFunctions {
                 address: String(address)
             })
         })
-        const name = (await harpieFetchResult.json())["contractOwner"]
+        const harpieResult = (await harpieFetchResult.json())
+        const name = harpieResult["contractOwner"]
         if (name === "NO_DATA") {
-            return address
-        } else {
             return await provider.lookupAddress(String(address))
+        } else {
+            return name
         }
     }
 
@@ -101,16 +102,6 @@ export class harpieFunctions {
         })
 
         const transactionInformation = await harpieFetchResult.json()
-        console.log(String(JSON.stringify(transactionInformation)))
         return transactionInformation
     }
 }
-
-// async function test() {
-//     //const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
-//     const contractName = await harpieFunctions.getAddressName(String("0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"))
-
-//     console.log(contractName)
-// }
-
-// test()

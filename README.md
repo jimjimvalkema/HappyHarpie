@@ -3,7 +3,9 @@
 and set up the development environment:
 
 ```shell
-yarn install && yarn start
+yarn add ethers ;yarn add @metamask/snaps-types; yarn add @metamask/snaps-ui;
+yarn install; 
+yarn start;
 ```
 
 <!-- # @metamask/template-snap-monorepo

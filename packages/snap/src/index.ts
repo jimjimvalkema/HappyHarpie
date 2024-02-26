@@ -9,7 +9,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
   const contractName = await harpieFunctions.getAddressName(String(transaction.to))
 
-
+  console.log(transaction)
   //displays the info gathered
   return {
     content: panel([

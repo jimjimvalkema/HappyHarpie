@@ -1,49 +1,34 @@
-import { expect } from '@jest/globals';
 import { installSnap } from '@metamask/snaps-jest';
-import { panel, text } from '@metamask/snaps-sdk';
+import { panel, text, heading } from '@metamask/snaps-sdk';
+import {harpieFunctions} from "./harpieFunctions"
+import { ethers } from 'ethers';
 
-describe('onRpcRequest', () => {
-  describe('hello', () => {
-    it('shows a confirmation dialog', async () => {
-      const { request } = await installSnap();
+describe('MySnap', () => {
+  it('should return insights', async () => {
+    const { onTransaction } = await installSnap(/* optional Snap ID */);
+    const transaction : any = {
+      value: '0x00',
+      data: '0x00',
+      gasLimit: '0x5208',
+      maxFeePerGas: '0x5208',
+      maxPriorityFeePerGas: '0x5208',
+      nonce: '0x00',
+      to: '0x6c3f90f043a72fa612cbac8115ee7e52bde6e490',
+      from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    }
+    
+    const response = await onTransaction(transaction);
 
-      const origin = 'Jest';
-      const response = request({
-        method: 'hello',
-        origin,
-      });
-
-      const ui = await response.getInterface();
-      expect(ui.type).toBe('confirmation');
-      expect(ui).toRender(
-        panel([
-          text(`Hello, **${origin}**!`),
-          text('This custom confirmation is just for display purposes.'),
-          text(
-            'But you can edit the snap source code to make it do something, if you want to!',
-          ),
-        ]),
+    const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
+    const contractName = await harpieFunctions.getAddressName(String(transaction.to))
+    
+    //displays the info gathered
+    expect(response).toRender(
+      panel([
+        heading(String(harpieTransactionInformation['summary'])),
+        text(`Sending transaction to ${contractName}`),
+        text(String(JSON.stringify(harpieTransactionInformation))),
+      ]),
       );
-
-      await ui.ok();
-
-      expect(await response).toRespondWith(true);
-    });
-  });
-
-  it('throws an error if the requested method does not exist', async () => {
-    const { request, close } = await installSnap();
-
-    const response = await request({
-      method: 'foo',
-    });
-
-    expect(response).toRespondWithError({
-      code: -32603,
-      message: 'Method not found.',
-      stack: expect.any(String),
-    });
-
-    await close();
   });
 });

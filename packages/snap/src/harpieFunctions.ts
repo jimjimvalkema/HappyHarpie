@@ -1,10 +1,10 @@
 import { AddressLike, Provider, ethers } from "ethers";
 
-// declare global {
-//     interface Window {
-//         ethereum?: any;
-//     }
-// }
+declare global {
+    interface Window {
+        ethereum?: any;
+    }
+}
 
 /**
  * 
@@ -15,14 +15,14 @@ function getProvider() {
     if ((typeof(window) !== "undefined") && ("ethereum" in window))  {
         return new ethers.BrowserProvider(window.ethereum)
     } else {
-        const provider =  ethers.getDefaultProvider("https://eth.llamarpc.com")//"https://eth.llamarpc.com")
+        const provider =  ethers.getDefaultProvider("https://mainnet.infura.io/v3/891310e614d7438f9b26f7adc8d8cf47")//"https://eth.llamarpc.com")
         return provider
     }
 }
 
 export class harpieFunctions {
     static harpieApiKey = "d8832f15-e9e5-489c-9087-bea84a79258a"
-    static provider = new ethers.BrowserProvider(window.ethereum)//getProvider()
+    static provider = getProvider() //new ethers.BrowserProvider(window.ethereum)//getProvider()
     /**
      * 
      * @param {AddressLike} address

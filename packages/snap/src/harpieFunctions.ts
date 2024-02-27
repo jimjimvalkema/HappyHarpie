@@ -104,4 +104,40 @@ export class harpieFunctions {
         const transactionInformation = await harpieFetchResult.json()
         return transactionInformation
     }
+
+    static async createInformationMessage(transaction:any) {
+        const transactionInformation = await harpieFunctions.getTransactionInformation(transaction)
+        let isHarpieHappyMessage
+        let isDangerousMessage =""
+        let addressName
+        let addressTagsMessage = ""
+        if (transactionInformation.recommendedAction === "ALLOW") {
+            isHarpieHappyMessage = `Harpie is happy 😌`
+
+            if (transactionInformation.isDangerousOperation) {
+                isDangerousMessage = `However this interaction is complex so be sure to know what you're doing!\n`
+            }
+
+        } else {
+            isHarpieHappyMessage = `❗🚨Harpie recomends to NOT send this transaction🚨❗`
+        }
+
+        console.log("addressDetails",("addressDetails" in transactionInformation) )
+        if ("addressDetails" in transactionInformation) {
+            addressName = transactionInformation.addressDetails.name
+            if (addressName === "No Flags Detected") {
+                addressName = await harpieFunctions.getAddressName(transaction.to)
+            }
+            const allTags = transactionInformation.addressDetails.tags
+            const tags = Object.keys(allTags).filter((key)=>allTags[key] && key!=="NO_DATA")
+            console.log((tags.length>0),tags)
+
+            if (tags.length>0) {
+                addressTagsMessage = `This address has been tagged with: ${tags.toString()}\n`
+            }
+        }
+
+        const explaination = {"header":isHarpieHappyMessage, "body":`This transaction goes to ${addressName}\n ${isDangerousMessage} ${addressTagsMessage}`}
+        return explaination
+    }
 }

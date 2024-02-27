@@ -12,21 +12,17 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   console.log(transaction)
 
   //get the infornmation from harpie about the tx
-  const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
+  const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
   console.log(`tx info from harpie: ${String(JSON.stringify(harpieTransactionInformation))}`)
-  
-  //get the address name from harpie or ens
-  const recipientName = await harpieFunctions.getAddressName(String(transaction.to))
-  console.log(`reciptients name: ${recipientName}`)
+
 
   //displays the info gathered
   //panel, heading and text are from metasmask snap api:
   //https://docs.metamask.io/snaps/features/custom-ui/
   return {
     content: panel([
-      heading(String(harpieTransactionInformation['summary'])),
-      text(`Sending transaction to ${recipientName}`),
-      text(String(JSON.stringify(harpieTransactionInformation))),
+      heading(harpieTransactionInformation.header),
+      text(harpieTransactionInformation.body)
     ]),
   };
 };

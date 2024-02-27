@@ -1,4 +1,4 @@
-import { harpieFunctions } from "./harpieFunctions"
+import { harpieFunctions } from "../src/harpieFunctions"
 import { ethers } from "ethers"
 
 export async function main() {

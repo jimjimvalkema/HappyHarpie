@@ -6,6 +6,7 @@ import {
   InstallFlaskButton,
   ReconnectButton,
   SendHelloButton,
+  AddRpcButton,
   Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
@@ -45,7 +46,7 @@ const Span = styled.span`
 `;
 
 const Subtitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.large};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 0;
@@ -133,13 +134,22 @@ const Index = () => {
     }
   };
 
+  const handleAddRpcClick = async () => {
+    try {
+      await sendHello();
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: MetamaskActions.SetError, payload: error });
+    }
+  };
+
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+      😊 HappyHarpie 😊{/* Welcome to <Span>template-snap</Span> */}
       </Heading>
       <Subtitle>
-        Get started by editing <code>src/index.ts</code>
+        Happy harpy is a metamask snap plugin that provides extra information for you transactions to keep you safe!{/* Get started by editing <code>src/index.ts</code> */}
       </Subtitle>
       <CardContainer>
         {state.error && (
@@ -161,9 +171,9 @@ const Index = () => {
         {!state.installedSnap && (
           <Card
             content={{
-              title: 'Connect',
+              title: 'Add HappyHarpie to Metamasks',
               description:
-                'Get started by connecting to and installing the example snap.',
+                'Install the HappyHarpy snap to get insights from your transactions',
               button: (
                 <ConnectButton
                   onClick={handleConnectClick}
@@ -177,9 +187,9 @@ const Index = () => {
         {shouldDisplayReconnectButton(state.installedSnap) && (
           <Card
             content={{
-              title: 'Reconnect',
+              title: 'Re-add HappyHarpie to Metamasks',
               description:
-                'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
+              'Install the happyHarpy snap to get insights from your transactions',
               button: (
                 <ReconnectButton
                   onClick={handleConnectClick}
@@ -192,31 +202,31 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Send Hello message',
+            title: 'Add Harpie rpc (TODO)',
             description:
-              'Display a custom message within a confirmation screen in MetaMask.',
+              'Add the Harpie rpc to Metamask to completely block scam transactions ',
             button: (
-              <SendHelloButton
+              <AddRpcButton
                 onClick={handleSendHelloClick}
-                disabled={!state.installedSnap}
+                // disabled={!state.installedSnap}
               />
             ),
           }}
-          disabled={!state.installedSnap}
+          // disabled={!state.installedSnap}
           fullWidth={
             isMetaMaskReady &&
             Boolean(state.installedSnap) &&
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
-        <Notice>
+        {/* <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}
             <b>package.json</b> must be located in the server root directory and
             the bundle must be hosted at the location specified by the location
             field.
           </p>
-        </Notice>
+        </Notice> */}
       </CardContainer>
     </Container>
   );

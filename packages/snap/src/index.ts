@@ -14,7 +14,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   //get the infornmation from harpie about the tx
   const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
   console.log(`tx info from harpie: ${String(JSON.stringify(harpieTransactionInformation))}`)
-  const sourcifyTxInfo = await SourcifyFunctions.getSourcifyInfo(transaction);
+  const sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);
 
   //displays the info gathered
   //panel, heading and text are from metasmask snap api:
@@ -23,8 +23,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
     content: panel([
       heading(harpieTransactionInformation.header),
       text(harpieTransactionInformation.body),
-      heading(sourcifyTxInfo.header),
-      text(sourcifyTxInfo.body)
+      heading(sourcifyTxInfo)
     ]),
   };
 };

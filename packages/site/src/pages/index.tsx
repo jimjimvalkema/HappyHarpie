@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { ethers, wordlists } from 'ethers';
 
 import {
   ConnectButton,
@@ -135,8 +136,20 @@ const Index = () => {
   };
 
   const handleAddRpcClick = async () => {
+    const harpieRpc = {
+      chainId: "0x1",
+      rpcUrls: ["https://eth.llamarpc.com"],
+      chainName: "Ethereum Mainnet Harpie Firewall",
+      nativeCurrency: {
+        name: "Ethereum",
+        symbol: "ETH",
+        decimals: 18
+      },
+      //blockExplorerUrls: []
+    }
     try {
-      await sendHello();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("wallet_addEthereumChain",[harpieRpc]);
     } catch (error) {
       console.error(error);
       dispatch({ type: MetamaskActions.SetError, payload: error });
@@ -207,7 +220,7 @@ const Index = () => {
               'Add the Harpie rpc to Metamask to completely block scam transactions ',
             button: (
               <AddRpcButton
-                onClick={handleSendHelloClick}
+                onClick={handleAddRpcClick}
                 // disabled={!state.installedSnap}
               />
             ),

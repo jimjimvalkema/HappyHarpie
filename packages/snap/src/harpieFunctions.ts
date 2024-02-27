@@ -37,7 +37,7 @@ export class harpieFunctions {
             return await this.getContractName(address)
         } else {
             const ensName = await provider.lookupAddress(String(address))
-            if (ensName === "null") {
+            if (ensName === null) {
                 return address
             } else {
                 return ensName
@@ -127,6 +127,7 @@ export class harpieFunctions {
             addressName = transactionInformation.addressDetails.name
             if (addressName === "No Flags Detected") {
                 addressName = await harpieFunctions.getAddressName(transaction.to)
+
             }
             const allTags = transactionInformation.addressDetails.tags
             const tags = Object.keys(allTags).filter((key)=>allTags[key] && key!=="NO_DATA")

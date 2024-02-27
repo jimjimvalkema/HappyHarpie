@@ -26,16 +26,15 @@ describe('happyHarpie', () => {
     const response = await onTransaction(transaction);
 
     //get info
-    const harpieTransactionInformation = await harpieFunctions.getTransactionInformation(transaction)
-    const contractName = await harpieFunctions.getAddressName(String(transaction.to))
+
+    const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
     
     //checks if the info rendered matches that with what onTransaction(transaction) made from simulating
     //this is from jest https://jestjs.io/docs/getting-started
     expect(response).toRender(
       panel([
-        heading(String(harpieTransactionInformation['summary'])),
-        text(`Sending transaction to ${contractName}`),
-        text(String(JSON.stringify(harpieTransactionInformation))),
+        heading(harpieTransactionInformation.header),
+        text(harpieTransactionInformation.body)
       ]),
       );
   });

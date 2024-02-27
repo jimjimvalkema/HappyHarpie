@@ -1,7 +1,7 @@
 import { OnTransactionHandler } from '@metamask/snaps-types';
 import { heading, panel, text } from '@metamask/snaps-ui';
 import {harpieFunctions} from "./harpieFunctions"
-
+import { SourcifyFunctions } from './sourcifyFunctions';
 
 // snap api handlers
 //onTransaction function is exported in the snap and used by metamask.
@@ -14,7 +14,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   //get the infornmation from harpie about the tx
   const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
   console.log(`tx info from harpie: ${String(JSON.stringify(harpieTransactionInformation))}`)
-
+  const sourcifyTxInfo = await SourcifyFunctions.getSourcifyInfo(transaction);
 
   //displays the info gathered
   //panel, heading and text are from metasmask snap api:
@@ -22,7 +22,9 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   return {
     content: panel([
       heading(harpieTransactionInformation.header),
-      text(harpieTransactionInformation.body)
+      text(harpieTransactionInformation.body),
+      heading(sourcifyTxInfo.header),
+      text(sourcifyTxInfo.body)
     ]),
   };
 };

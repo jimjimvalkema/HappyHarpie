@@ -17,13 +17,12 @@ export class SourcifyFunctions {
     static async evaluation(address: any) {
         const sourcifyInfo: any = await this.getSourcifyInfo(address);
         const firstResult = sourcifyInfo[0]; // whole json object is an array at index 0
-    
         // console.log(firstResult); // json data object
     
         if (firstResult.status === 'false') {
-            return "DANGEROUS";
+            return "Sourcify is reporting that the contract you are trying to interact with is not verified.";
         } else {
-            return "SAFE";
+            return "Sourcify is reporting that the contract you are trying to interact with is verified!";
         }
     }
 }

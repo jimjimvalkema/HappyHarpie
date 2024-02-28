@@ -25,10 +25,10 @@ export class harpieFunctions {
     static provider = getProvider() //new ethers.BrowserProvider(window.ethereum)//getProvider()
     /**
      * 
-     * @param {AddressLike} address
+     * @param {any} address
      * @returns {Bool} isContract
      */
-    static async isContract(address: AddressLike, provider: Provider = this.provider) {
+    static async isContract(address: any, provider: Provider = this.provider) {
         return "0x" !== (await provider.getCode(address))
     }
 

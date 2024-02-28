@@ -1,7 +1,8 @@
 import { installSnap } from '@metamask/snaps-jest';
 import { panel, text, heading } from '@metamask/snaps-sdk';
 import {harpieFunctions} from "./harpieFunctions"
-import { ethers } from 'ethers';
+import { SourcifyFunctions } from './sourcifyFunctions';
+
 
 describe('happyHarpie', () => {
   it('should return insight of a normal eth transfer to the 3pool contract', async () => {
@@ -29,12 +30,23 @@ describe('happyHarpie', () => {
 
     const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
     
+    let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
+    console.log("This is the bool from isContract: ", harpieContractYesNo);
+    let sourcifyTxInfo:string = "You are not interacting with a smart contract";
+    // console.log(typeof(sourcifyTxInfo), "This is STxIn", sourcifyTxInfo);
+
+    if (harpieContractYesNo === true) {
+      sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);
+      // console.log(typeof(sourcifyTxInfo), "This is STxIn", sourcifyTxInfo);
+    }
+
     //checks if the info rendered matches that with what onTransaction(transaction) made from simulating
     //this is from jest https://jestjs.io/docs/getting-started
     expect(response).toRender(
       panel([
         heading(harpieTransactionInformation.header),
-        text(harpieTransactionInformation.body)
+        text(harpieTransactionInformation.body),
+        text(sourcifyTxInfo)
       ]),
       );
   });

@@ -16,6 +16,7 @@ yarn test
 run harpie functions without snap
 ```shell
 bun run ./packages/snap/src/harpieFunctionsTest.ts
+ts-node ./packages/snap/src/harpieFunctionsTest.ts
 ```
   
 

@@ -13,7 +13,7 @@ declare global {
 function getProvider() {
     //return new ethers.BrowserProvider(window.ethereum)
     if ((typeof (window) !== "undefined") && ("ethereum" in window)) {
-        return new ethers.BrowserProvider(window.ethereum)
+        return new ethers.BrowserProvider(window.ethereum,"any")
     } else {
         const provider = ethers.getDefaultProvider("https://mainnet.infura.io/v3/891310e614d7438f9b26f7adc8d8cf47")//"https://eth.llamarpc.com")
         return provider
@@ -121,8 +121,6 @@ export class harpieFunctions {
         } else {
             isHarpieHappyMessage = `❗🚨Harpie recomends to NOT send this transaction🚨❗`
         }
-
-        console.log("addressDetails",("addressDetails" in transactionInformation) )
         if ("addressDetails" in transactionInformation) {
             addressName = transactionInformation.addressDetails.name
             if (addressName === "No Flags Detected") {
@@ -131,7 +129,6 @@ export class harpieFunctions {
             }
             const allTags = transactionInformation.addressDetails.tags
             const tags = Object.keys(allTags).filter((key)=>allTags[key] && key!=="NO_DATA")
-            console.log((tags.length>0),tags)
 
             if (tags.length>0) {
                 addressTagsMessage = `This address has been tagged with: ${tags.toString()}\n`
@@ -140,5 +137,25 @@ export class harpieFunctions {
 
         const explaination = {"header":isHarpieHappyMessage, "body":`This transaction goes to ${addressName}\n ${isDangerousMessage} ${addressTagsMessage}`}
         return explaination
+    }
+    /**
+     * 
+     * @param address 
+     * @returns Bool
+     */
+    static async isMaliciousAddress(address:String) {
+        const result  = await fetch("https://api.harpie.io/v2/validateAddress", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                apiKey: this.harpieApiKey,
+                address: address
+            })
+        }) 
+        const resultJson = await result.json()
+        return resultJson["isMaliciousAddress"]
     }
 }

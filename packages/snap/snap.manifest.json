@@ -17,6 +17,7 @@
     }
   },
   "initialPermissions": {
+    "endowment:page-home": {},
     "endowment:transaction-insight": {},
     "endowment:ethereum-provider": {},
     "endowment:network-access": {},

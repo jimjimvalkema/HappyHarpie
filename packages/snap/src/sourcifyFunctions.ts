@@ -1,9 +1,11 @@
+import { AddressLike } from "ethers";
+
 export class SourcifyFunctions {
     /**
      * @param address
      * @returns sourcifyInfo object- an array
      */
-    static async getSourcifyInfo(address: any) {
+    static async getSourcifyInfo(address: AddressLike) {
         const response = await fetch(`https://sourcify.dev/server/check-all-by-addresses?addresses=${address}&chainIds=1`, {
             headers: {
             'accept': 'application/json'

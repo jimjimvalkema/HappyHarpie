@@ -43,7 +43,6 @@ export class harpieFunctions {
                 return ensName
             }
         }
-
     }
 
     /**
@@ -109,7 +108,7 @@ export class harpieFunctions {
         const transactionInformation = await harpieFunctions.getTransactionInformation(transaction)
         let isHarpieHappyMessage
         let isDangerousMessage =""
-        let addressName
+        let addressName=""
         let addressTagsMessage = ""
         if (transactionInformation.recommendedAction === "ALLOW") {
             isHarpieHappyMessage = `Harpie is happy 😌`
@@ -119,7 +118,7 @@ export class harpieFunctions {
             }
 
         } else {
-            isHarpieHappyMessage = `❗🚨Harpie recomends to NOT send this transaction🚨❗`
+            isHarpieHappyMessage = `❗Harpie recomends to NOT send this transaction❗`
         }
 
         console.log("addressDetails",("addressDetails" in transactionInformation) )

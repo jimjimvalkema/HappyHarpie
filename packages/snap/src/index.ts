@@ -17,7 +17,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
 
   // need to check if interaction is w a contract not an EOA, if so run this, if not skip
   let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
-  let sourcifyTxInfo:string = "You are not interacting with a smart contract";
+  let sourcifyTxInfo:string = "You are not interacting with a smart contract.";
 
   if (harpieContractYesNo === true) {
     sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);

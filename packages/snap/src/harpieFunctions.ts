@@ -119,7 +119,7 @@ export class harpieFunctions {
             }
 
         } else {
-            isHarpieHappyMessage = `❗🚨Harpie recomends to NOT send this transaction🚨❗`
+            isHarpieHappyMessage = `❗Harpie recomends to NOT send this transaction❗`
         }
         if ("addressDetails" in transactionInformation) {
             addressName = transactionInformation.addressDetails.name
@@ -135,7 +135,7 @@ export class harpieFunctions {
             }
         }
 
-        const explaination = {"header":isHarpieHappyMessage, "body":`This transaction goes to ${addressName}\n ${isDangerousMessage} ${addressTagsMessage}`}
+        const explaination = {"header":isHarpieHappyMessage, "body":`This transaction goes to ${addressName}\n ${isDangerousMessage} ${addressTagsMessage}.`}
         return explaination
     }
     /**

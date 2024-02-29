@@ -13,7 +13,7 @@ declare global {
 function getProvider() {
     //return new ethers.BrowserProvider(window.ethereum)
     if ((typeof (window) !== "undefined") && ("ethereum" in window)) {
-        return new ethers.BrowserProvider(window.ethereum)
+        return new ethers.BrowserProvider(window.ethereum,"any")
     } else {
         const provider = ethers.getDefaultProvider("https://mainnet.infura.io/v3/891310e614d7438f9b26f7adc8d8cf47")//"https://eth.llamarpc.com")
         return provider

@@ -10,8 +10,8 @@ export const uniswapTx: any = {
     maxFeePerGas: '0x5208',
     maxPriorityFeePerGas: '0x5208',
     nonce: '0x00',
-    to: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD',
-    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    to: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD'.toLowerCase(),
+    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'.toLowerCase()
 }
 
 export const tornadoCashTx: any = {
@@ -22,8 +22,8 @@ export const tornadoCashTx: any = {
     maxFeePerGas: '0x5208',
     maxPriorityFeePerGas: '0x5208',
     nonce: '0x00',
-    to: '0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b',
-    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    to: '0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b'.toLowerCase(),
+    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'.toLowerCase()
 }
 
 export const scamTx: any = {
@@ -33,8 +33,8 @@ export const scamTx: any = {
     maxFeePerGas: '0x5208',
     maxPriorityFeePerGas: '0x5208',
     nonce: '0x00',
-    to: '0x09750ad360fdb7a2ee23669c4503c974d86d8694',
-    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    to: '0x09750ad360fdb7a2ee23669c4503c974d86d8694'.toLowerCase(),
+    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'.toLowerCase()
 }
 
 export const normalEthTx: any = {
@@ -44,8 +44,8 @@ export const normalEthTx: any = {
     maxFeePerGas: '0x5208',
     maxPriorityFeePerGas: '0x5208',
     nonce: '0x00',
-    to: '0x8c3b6B718a23A4ba76630274b53E7aaEdC7319Fa',
-    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    to: '0x8c3b6B718a23A4ba76630274b53E7aaEdC7319Fa'.toLowerCase(),
+    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'.toLowerCase()
 }
 
 export const normalEthEnsTx: any = {
@@ -55,6 +55,6 @@ export const normalEthEnsTx: any = {
     maxFeePerGas: '0x5208',
     maxPriorityFeePerGas: '0x5208',
     nonce: '0x00',
-    to: '0x23bc95F84BD43C1FCc2bc285fDa4Cb12f9AEE2df',
-    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'
+    to: '0x23bc95F84BD43C1FCc2bc285fDa4Cb12f9AEE2df'.toLowerCase(),
+    from: '0x78f747ce0684f6d8b002ddc5649074bf59d05cb6'.toLowerCase()
 }

@@ -43,22 +43,43 @@ export const onSignature: OnSignatureHandler = async ({
 }) => {
   //TODO check signature origin
   //TODO research recursive data types
-  const maliciousAddresses = await signatureChecker.checkEIP712(signature)
+  const maliciousAddresses = await signatureChecker.checkEIP712Addresses(signature)
+  const isOpenSeaListing =  signatureChecker.isOpenseaSignature(signature)
+  let differenceFromFloor = 0
+  let listingPrice
+  let floorPrice
+  if (isOpenSeaListing) {
+    const signatureAny:any = signature
+    const nftContractAddress = signatureAny.data.message.offer[0].token
+    floorPrice = await signatureChecker.getFloorPrice(nftContractAddress)
+    listingPrice = signatureChecker.getListingPriceOpenSea(signatureAny)
+    differenceFromFloor = await signatureChecker.getPercentageDifferenceFromFloor(listingPrice, floorPrice)
+
+  }
   if (maliciousAddresses.length>0) {
     return {
       content: panel([
         heading(`❗One or more addresses has been labeled MALICIOUS❗`),
         //TODO get tags from harpie
         text(`DO NOT sign this signature.\n The following address(es) have been blacklisted by harpie ${maliciousAddresses.toString()}`),
-        //text(JSON.stringify(signature))
       ]),
       severity: SeverityLevel.Critical //severity: severityLevel
     };
 
-  } else {
+  } else if (differenceFromFloor < -10) {
+    const {headingContent,  textContent } = await signatureChecker.getFloorDifferenceMessage(signature, differenceFromFloor,listingPrice,floorPrice)
+    console.log(headingContent, textContent)
     return {
       content: panel([
+        heading(headingContent),
+        text(textContent),
       ]),
+      severity: SeverityLevel.Critical //severity: severityLevel
+    };
+
+  }else {
+    return {
+      content: panel([]),
     };
   }
 

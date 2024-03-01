@@ -56,7 +56,7 @@ for (const transaction of testTxs) {
       const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
 
       let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
-      let sourcifyTxInfo: string = "You are not interacting with a smart contract";
+      let sourcifyTxInfo: string = "You are not interacting with a smart contract.";
 
       if (harpieContractYesNo === true) {
         sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);

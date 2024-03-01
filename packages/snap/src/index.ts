@@ -44,13 +44,13 @@ export const onSignature: OnSignatureHandler = async ({
   //TODO check signature origin
   //TODO research recursive data types
   const maliciousAddresses = await signatureChecker.checkEIP712(signature)
-  if (maliciousAddresses.length) {
+  if (maliciousAddresses.length>0) {
     return {
       content: panel([
         heading(`❗One or more addresses has been labeled MALICIOUS❗`),
         //TODO get tags from harpie
-        text(`DO NOT sign this signature.\n The following address(es) have been blacklisted by harpie ${maliciousAddresses.toString()}`)
-        //text(JSON.stringify(maliciousAddresses))
+        text(`DO NOT sign this signature.\n The following address(es) have been blacklisted by harpie ${maliciousAddresses.toString()}`),
+        //text(JSON.stringify(signature))
       ]),
       severity: SeverityLevel.Critical //severity: severityLevel
     };

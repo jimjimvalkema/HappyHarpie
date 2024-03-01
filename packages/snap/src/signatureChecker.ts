@@ -17,13 +17,36 @@ export class signatureChecker {
         return maliciousAddresses
     }
 
-    static async delayedMessage(delayInms:number, message:string) {
-        await new Promise(resolve => setTimeout(resolve, delayInms));
-        return 
-      };    
+    static async getListingPriceOpenSea(OpenSeaSignature:any) {
+        //technically can be inaccurate if the royalty fee starts high and listing starts low but it errors on the cautios side so should be fine
+        const smallestPossibleListing = OpenSeaSignature.data.message.consideration.reduce((total:any,offer: any) => {
+            const smallest = [BigInt(offer.endAmount), BigInt(offer.startAmount)].reduce((smallest: any, amount: any) => {
+                if (BigInt(amount) < BigInt(smallest)) {
+                    return BigInt(amount)
+                } else {
+                    return BigInt(smallest)
+                }
+            }, BigInt(offer.endAmount))
+            total+=BigInt(smallest)
+            return total
+        }, 0n)
 
-    static async promiseWithTimeLimit(promise:any, timeLimit:any, timeExceededMessage:any) {
-        return await  Promise.race([promise, this.delayedMessage(timeLimit, timeExceededMessage)])
+        return smallestPossibleListing
 
     }
+
+    // static async delayedMessage(delayInms:number, message:string) {
+    //     await new Promise(resolve => setTimeout(resolve, delayInms));
+    //     return 
+    //   };    
+
+    // static async promiseWithTimeLimit(promise:any, timeLimit:any, timeExceededMessage:any) {
+    //     return await  Promise.race([promise, this.delayedMessage(timeLimit, timeExceededMessage)])
+
+    // }
+
+
+
+
+    // static async getSignatureType
 }

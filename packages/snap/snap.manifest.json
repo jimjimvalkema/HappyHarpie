@@ -17,6 +17,9 @@
     }
   },
   "initialPermissions": {
+    "endowment:signature-insight": {
+      "allowSignatureOrigin": true
+    },
     "endowment:page-home": {},
     "endowment:transaction-insight": {},
     "endowment:ethereum-provider": {},

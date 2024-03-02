@@ -109,7 +109,6 @@ export class signatureChecker {
         //console.log("floor:",ethers.formatEther(floorPrice),"listing: ", ethers.formatEther(listingPrice), ethers.formatEther(listingPrice-floorPrice))//, ethers.formatEther(Number(listingPrice-floorPrice)/Number(floorPrice)) )
         
         if(listingPrice) {
-            console.log(listingPrice,floorPrice, (Number(listingPrice)-Number(floorPrice))/Number(floorPrice)*100)
             return (Number(listingPrice-floorPrice))/Number(floorPrice)*100
 
         }else {
@@ -128,7 +127,6 @@ export class signatureChecker {
         const nftContractAddress = OpenSeaSignature.data.message.offer[0].token
         const collectionName = await this.getNftName(nftContractAddress)
         const listingPriceTicker = "ETH" //TODO check what listing ticker is
-        console.log("listing price",listingPrice)
 
         const formattedListingPrice = ethers.formatEther(listingPrice)
         const formattedfloorPrice = ethers.formatEther(floorPrice)

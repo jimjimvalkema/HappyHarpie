@@ -1,8 +1,8 @@
-import {signatureMallicous, milady50PercentBelow, moladyListing60PercentBelow, moladyListing0} from "./testSignatures"
+import {signatureMallicous, milady50PercentBelow, moladyListing60PercentBelow, moladyListing0, openSeaListingLowPrice} from "./testSignatures"
 import { signatureChecker } from "../src/signatureChecker"
 
 export async function main() {
-    const signature = moladyListing0
+    const signature = openSeaListingLowPrice
     let differenceFromFloor = 0
     let listingPrice
     let floorPrice

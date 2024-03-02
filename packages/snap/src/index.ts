@@ -11,12 +11,9 @@ import { signatureChecker } from './signatureChecker';
 //the function needs to called onTransaction otherwise metamask doesnt see it
 // //https://docs.metamask.io/snaps/reference/entry-points/#ontransaction
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
-  console.log("the tx:",transaction)
 
   //get the infornmation from harpie about the tx
   const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
-  console.log(`tx info from harpie: ${String(JSON.stringify(harpieTransactionInformation))}`)
-
   // need to check if interaction is w a contract not an EOA, if so run this, if not skip
   let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
   let sourcifyTxInfo:string = "You are not interacting with a smart contract.";
@@ -41,8 +38,16 @@ export const onSignature: OnSignatureHandler = async ({
   signature,
   signatureOrigin,
 }) => {
-  //TODO check signature origin
-  //TODO research recursive data types
+//   return {
+//     content: panel([
+//       heading("hi this is debug"),
+//       text(JSON.stringify(signature, null, 2)),
+//     ]),
+//     severity: SeverityLevel.Critical
+//   };
+// };
+//   TODO check signature origin
+//   TODO research recursive data types
   const maliciousAddresses = await signatureChecker.checkEIP712Addresses(signature)
   const isOpenSeaListing =  signatureChecker.isOpenseaSignature(signature)
   let differenceFromFloor = 0
@@ -82,10 +87,9 @@ export const onSignature: OnSignatureHandler = async ({
       content: panel([]),
     };
   }
-
-
-
-
-  //const insights:any = [{"value": JSON.stringify(maliciousAddresses)}]//, {"value":signature}, {"value":signatureOrigin}]/* Get insights based on custom logic */;
-
 };
+
+
+
+
+//   const insights:any = [{"value": JSON.stringify(maliciousAddresses)}]//, {"value":signature}, {"value":signatureOrigin}]/* Get insights based on custom logic */;

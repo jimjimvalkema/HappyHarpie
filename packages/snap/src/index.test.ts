@@ -4,7 +4,6 @@ import { signatureChecker } from './signatureChecker';
 import { harpieFunctions } from "./harpieFunctions"
 import { SourcifyFunctions } from './sourcifyFunctions';
 import { normalEthTx, normalEthEnsTx, scamTx, uniswapTx } from '../tests/testTransactions';
-import { SeverityLevel } from "@metamask/snaps-types"
 import { moladyListing60PercentBelow } from '../tests/testSignatures';
 
 
@@ -57,40 +56,37 @@ describe('happyHarpie', () => {
   })
 })
 
-// const testTxs = [scamTx, normalEthEnsTx]//,normalEthTx, uniswapTx]
-// for (const transaction of testTxs) {
-//   describe('happyHarpie', () => {
-//     it('should return insight of the transaction', async () => {
-//       //mimics the install snap flow
-//       //https://docs.metamask.io/snaps/reference/jest/#installsnap
-//       const { onTransaction } = await installSnap(/* optional Snap ID */);
+const testTxs = [scamTx, normalEthEnsTx]//,normalEthTx, uniswapTx]
+for (const transaction of testTxs) {
+  describe('happyHarpie', () => {
+    it('should return insight of the transaction', async () => {
+      //mimics the install snap flow
+      //https://docs.metamask.io/snaps/reference/jest/#installsnap
+      const { onTransaction } = await installSnap(/* optional Snap ID */);
 
-//       //simulates user going to the confirm transaction page with out transaction
-//       //https://docs.metamask.io/snaps/reference/jest/#ontransaction
-//       const response = await onTransaction(transaction);
+      //simulates user going to the confirm transaction page with out transaction
+      //https://docs.metamask.io/snaps/reference/jest/#ontransaction
+      const response = await onTransaction(transaction);
 
-//       //get info
+      //get info
 
-//       const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
+      const harpieTransactionInformation = await harpieFunctions.createInformationMessage(transaction)
 
-//       let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
-//       let sourcifyTxInfo: string = "You are not interacting with a smart contract.";
+      let harpieContractYesNo = await harpieFunctions.isContract(transaction["to"]);
+      let sourcifyTxInfo: string = "You are not interacting with a smart contract.";
 
-//       if (harpieContractYesNo === true) {
-//         sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);
-//       }
-
-//       console.log(`tx info: ${JSON.stringify(harpieTransactionInformation, null, 2)}`)
-//       console.log(`sourcify info: ${sourcifyTxInfo}`)
-//       //checks if the info rendered matches that with what onTransaction(transaction) made from simulating
-//       //this is from jest https://jestjs.io/docs/getting-started
-//       expect(response).toRender(
-//         panel([
-//           heading(harpieTransactionInformation.header),
-//           text(harpieTransactionInformation.body),
-//           text(sourcifyTxInfo)
-//         ]),
-//       );
-//     });
-//   });
-// }
+      if (harpieContractYesNo === true) {
+        sourcifyTxInfo = await SourcifyFunctions.evaluation(transaction.to);
+      }
+      //checks if the info rendered matches that with what onTransaction(transaction) made from simulating
+      //this is from jest https://jestjs.io/docs/getting-started
+      expect(response).toRender(
+        panel([
+          heading(harpieTransactionInformation.header),
+          text(harpieTransactionInformation.body),
+          text(sourcifyTxInfo)
+        ]),
+      );
+    });
+  });
+}

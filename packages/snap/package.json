@@ -1,10 +1,10 @@
 {
-  "name": "snap",
-  "version": "0.1.0",
-  "description": "The 'Hello, world!' of MetaMask Snaps, now written in TypeScript.",
+  "name": "happyharpie",
+  "version": "0.1.1",
+  "description": "HappyHarpie! a metamask snap that is happy to protect you from scams!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/jimjimvalkema/HappyHarpie.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
   "main": "./dist/bundle.js",
@@ -28,7 +28,10 @@
   },
   "dependencies": {
     "@metamask/snaps-sdk": "^2.1.0",
-    "buffer": "^6.0.3"
+    "@metamask/snaps-types": "^3.1.0",
+    "@metamask/snaps-ui": "^3.1.0",
+    "buffer": "^6.0.3",
+    "ethers": "^6.11.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",

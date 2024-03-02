@@ -1,17 +1,17 @@
 {
-  "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "happy harpy",
+  "version": "0.1.1",
+  "description": "HappyHarpie! A metamask snap that is happy to protect you from scams!",
+  "proposedName": "happyharpie",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/jimjimvalkema/HappyHarpie.git"
   },
   "source": {
-    "shasum": "XGEpLh5HlQ7fGkN+IK2vkpag0CxNaBFLLMom2LkXcDI=",
+    "shasum": "iMb51HOLCtOQDVpF6Vtb90Wuxst54Gpl7ELNVCxzAjw=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "snap",
+        "packageName": "happyharpie",
         "registry": "https://registry.npmjs.org/"
       }
     }

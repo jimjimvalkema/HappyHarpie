@@ -18,7 +18,13 @@ run harpie functions without snap
 bun run ./packages/snap/src/harpieFunctionsTest.ts
 ts-node ./packages/snap/src/harpieFunctionsTest.ts
 ```
+
+Run website for ui testing:
+```shell
+python3 -m http.server 8181 -d packages/uiTesting
+```
   
+install the HappyHarpie snap and test at: [ipfs://QmeGYgS5JG7rCYHQnMyXV92GVqekkBFakNzbecsHpCHkm2](https://ipfs.io/ipfs/QmeGYgS5JG7rCYHQnMyXV92GVqekkBFakNzbecsHpCHkm2/)
 
 install bun  
 https://bun.sh/docs/installation
